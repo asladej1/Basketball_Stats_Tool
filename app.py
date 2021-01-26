@@ -20,7 +20,6 @@ nexp_players = []
 panthers = []
 bandits = []
 warriors = []
-
             
             
 def balance_teams(players):
@@ -34,27 +33,12 @@ def balance_teams(players):
         else:
             nexp_players.append(player_name)  
        
-    
+squads = [panthers, bandits, warriors]
+num_teams= len(squads)
 def balance_exp(exp_players):
-    for players in exp_players:
-        
-        if len(panthers) < max_players/2:
-            panthers.append(players)
-        elif len(bandits) < max_players/2:
-            bandits.append(players)
-        elif len(warriors) < max_players/2:
-            warriors.append(players) 
-         
-        
-def balance_nexp(nexp_players):
-    for players in nexp_players:
-        
-        if len(panthers) < max_players:
-            panthers.append(players)
-        elif len(bandits) < max_players:
-            bandits.append(players)
-        elif len(warriors) < max_players:
-            warriors.append(players)  
+    for num in range(len(exp_players)):
+        squads[num % num_teams].append(exp_players[num])
+ 
             
             
 def dis_options():
@@ -83,10 +67,21 @@ def show_teams():
     print('\nA)Panthers\n\nB)Bandits\n\nC)Warrirors\n\n')
     try:
         team_sel= input('Enter an option: ')
-        if team_sel.lower() == "a" or team_sel.lower()=="b" or team_sel.lower() == "c":
+        if team_sel.lower()== 'a'or team_sel.lower()=='b' or team_sel.lower()=='c':
+            
             if team_sel.lower() == "a":
                 team = "Panthers"
                 members = len(panthers)
+                experience = []
+                num_exp = len(experience)
+                nexperience = []
+                num_nexp = len(nexperience)
+                for player in panthers:
+                    player_exp = panthers['expereince']
+                    if player_exp== True:
+                        experience.append(player)
+                    else:
+                        nexperience.append(player)
                 print('\nTEAM: {} Stats\n--------------------\nTotal Players: {}\n'.format(team,members))
                 team_list = print(*panthers,sep=', ')
                
@@ -101,9 +96,9 @@ def show_teams():
                 members = len(warriors)
                 print('\nTEAM: {} Stats\n--------------------\nTotal Players: {}\n'.format(team,members))
                 team_list = print(*warriors,sep=', ')
-                
-        else:
-            raise ValueError
+                    
+            else:
+                raise ValueError
       
     except ValueError as err:
         print("\nInvalid input.Please choose either A, B or C\n")     
@@ -128,8 +123,6 @@ if __name__ == '__main__':
       
     balance_teams(players)
     balance_exp(exp_players)
-    balance_nexp(nexp_players)
+    balance_exp(nexp_players)
     clean_data()
     dis_options()
-    
-    

@@ -20,26 +20,27 @@ nexp_players = []
 panthers = []
 bandits = []
 warriors = []
-            
+
+       
+squads = [panthers, bandits, warriors]
+num_teams= len(squads)             
             
 def balance_teams(players):
     for player in players:
         experience = player['experience']
-        player_name = player['name']
+       
         
         if experience == 'YES':
-            exp_players.append(player_name)
+            exp_players.append(player)
             
         else:
-            nexp_players.append(player_name)  
-       
-squads = [panthers, bandits, warriors]
-num_teams= len(squads)
-def balance_exp(exp_players):
-    for num in range(len(exp_players)):
-        squads[num % num_teams].append(exp_players[num])
- 
-            
+            nexp_players.append(player)  
+  
+
+
+def balance_exp(exp_lists):
+    for num in range(len(exp_lists)):
+        squads[num % num_teams].append(exp_lists[num])
             
 def dis_options():
     print('Here are your Choices: \n A) Display Team Stats \n B) Quit\n\n')
@@ -65,45 +66,37 @@ def dis_options():
     
 def show_teams():
     print('\nA)Panthers\n\nB)Bandits\n\nC)Warrirors\n\n')
+
     try:
         team_sel= input('Enter an option: ')
-        if team_sel.lower()== 'a'or team_sel.lower()=='b' or team_sel.lower()=='c':
-            
+        if team_sel.lower() == "a" or team_sel.lower()=="b" or team_sel.lower() == "c":
             if team_sel.lower() == "a":
                 team = "Panthers"
                 members = len(panthers)
-                experience = []
-                num_exp = len(experience)
-                nexperience = []
-                num_nexp = len(nexperience)
-                for player in panthers:
-                    player_exp = panthers['expereince']
-                    if player_exp== True:
-                        experience.append(player)
-                    else:
-                        nexperience.append(player)
                 print('\nTEAM: {} Stats\n--------------------\nTotal Players: {}\n'.format(team,members))
-                team_list = print(*panthers,sep=', ')
+                print(pretty_data(*panthers, sep= ','))
                
             elif team_sel.lower() == "b":
                 team = "Bandits"
                 members = len(bandits)
                 print('\nTEAM: {} Stats\n--------------------\nTotal Players: {}\n'.format(team,members))
-                team_list = print(*bandits,sep=', ')
+                team_list = print(*bandits, sep=', ')
             
             elif team_sel.lower() == "c":
                 team = "Warriors"
                 members = len(warriors)
                 print('\nTEAM: {} Stats\n--------------------\nTotal Players: {}\n'.format(team,members))
                 team_list = print(*warriors,sep=', ')
-                    
-            else:
-                raise ValueError
+                
+        else:
+            raise ValueError
       
     except ValueError as err:
         print("\nInvalid input.Please choose either A, B or C\n")     
 
-
+def pretty_data(*team, sep= ','):
+    for player in team:
+        print(f"Name: {player['name']}\nGuardians: {player['guardians']}\nExperience {player['experience']}\nHeight: {player['height']}\n")
         
 if __name__ == '__main__':
     def clean_data():
@@ -119,6 +112,7 @@ if __name__ == '__main__':
                 
         for player in PLAYERS:
             player['guardians'] = player['guardians'].split(' and ')
+            
     
       
     balance_teams(players)

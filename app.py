@@ -73,20 +73,47 @@ def show_teams():
             if team_sel.lower() == "a":
                 team = "Panthers"
                 members = len(panthers)
-                print('\nTEAM: {} Stats\n--------------------\nTotal Players: {}\n'.format(team,members))
+                exp_count = 0
+                height = []
+                for players in panthers:
+                    if players['experience']== True:
+                        exp_count += 1
+                    height.append(players['height'])
+                nexp_count = (members - exp_count)
+                average_height = (round(sum(height)/members)) 
+                
+                print('\nTEAM: {} Stats\n--------------------\nTotal Players: {}\nExperienced Players: {}\nNon-experienced Players: {}\nAverage Height: {} inches\n\n'.format(team,members,exp_count,nexp_count, average_height))
                 print(pretty_data(*panthers, sep= ','))
                
             elif team_sel.lower() == "b":
                 team = "Bandits"
-                members = len(bandits)
-                print('\nTEAM: {} Stats\n--------------------\nTotal Players: {}\n'.format(team,members))
-                team_list = print(*bandits, sep=', ')
+                members = len(bandits) 
+                exp_count = 0
+                height = []
+                for players in bandits:
+                    if players['experience']== True:
+                        exp_count += 1
+                    height.append(players['height'])
+                nexp_count = (members - exp_count)
+                average_height = (round(sum(height)/members)) 
+                
+                print('\nTEAM: {} Stats\n--------------------\nTotal Players: {}\nExperienced Players: {}\nNon-experienced Players: {}\nAverage Height: {} inches\n\n'.format(team,members,exp_count,nexp_count, average_height))
+                print(pretty_data(*bandits, sep= ','))
             
             elif team_sel.lower() == "c":
                 team = "Warriors"
                 members = len(warriors)
-                print('\nTEAM: {} Stats\n--------------------\nTotal Players: {}\n'.format(team,members))
-                team_list = print(*warriors,sep=', ')
+                exp_count = 0
+                height = []
+                for players in warriors:
+                    if players['experience']== True:
+                        exp_count += 1
+                    height.append(players['height'])
+                nexp_count = (members - exp_count)
+                average_height = (round(sum(height)/members)) 
+                
+                print('\nTEAM: {} Stats\n--------------------\nTotal Players: {}\nExperienced Players: {}\nNon-experienced Players: {}\nAverage Height: {} inches\n\n'.format(team,members,exp_count,nexp_count, average_height))
+                print(pretty_data(*warriors, sep= ','))
                 
         else:
             raise ValueError
@@ -96,7 +123,7 @@ def show_teams():
 
 def pretty_data(*team, sep= ','):
     for player in team:
-        print(f"Name: {player['name']}\nGuardians: {player['guardians']}\nExperience {player['experience']}\nHeight: {player['height']}\n")
+        print(f"Name: {player['name']}\nGuardians: {player['guardians']}\nExperience: {player['experience']}\nHeight: {player['height']}\n")
         
 if __name__ == '__main__':
     def clean_data():
@@ -120,3 +147,5 @@ if __name__ == '__main__':
     balance_exp(nexp_players)
     clean_data()
     dis_options()
+    
+ 

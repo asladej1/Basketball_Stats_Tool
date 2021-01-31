@@ -1,4 +1,4 @@
-import random
+#looking to qualify for "exceeds expectations" grade. 
 from constants import PLAYERS
 from constants import TEAMS
 

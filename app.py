@@ -124,7 +124,7 @@ def show_teams():
 def pretty_data(*team, sep= ','):
     for player in team:
         print(f"Name: {player['name']}\nGuardians: {player['guardians']}\nExperience: {player['experience']}\nHeight: {player['height']}\n")
-        
+        dis_options()
 if __name__ == '__main__':
     def clean_data():
         for player in players:
@@ -138,7 +138,7 @@ if __name__ == '__main__':
                 player['height'] = int(player['height'].split()[0])
                 
         for player in PLAYERS:
-            player['guardians'] = player['guardians'].split(' and ')
+            player['guardians'] = ', '.join(player['guardians'].split(' and '))
             
     
       
@@ -148,4 +148,3 @@ if __name__ == '__main__':
     clean_data()
     dis_options()
     
- 

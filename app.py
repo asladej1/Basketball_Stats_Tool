@@ -1,17 +1,12 @@
 #looking to qualify for "exceeds expectations" grade. 
+import copy
 from constants import PLAYERS
 from constants import TEAMS
 
 GREETING = 'BASKETBALL TEAM STATS TOOL\n'
 
-players = PLAYERS.copy()
-teams = TEAMS.copy()
-
-print(GREETING.upper())
-
-
-print('-----MENU-----\n')
-
+players = copy.deepcopy(PLAYERS)
+teams = copy.deepcopy(TEAMS)
 
 max_players = len(players)/len(teams)
 exp_players = []
@@ -35,7 +30,6 @@ def balance_teams(players):
             
         else:
             nexp_players.append(player)  
-  
 
 
 def balance_exp(exp_lists):
@@ -83,7 +77,7 @@ def show_teams():
                 average_height = (round(sum(height)/members)) 
                 
                 print('\nTEAM: {} Stats\n--------------------\nTotal Players: {}\nExperienced Players: {}\nNon-experienced Players: {}\nAverage Height: {} inches\n\n'.format(team,members,exp_count,nexp_count, average_height))
-                print(pretty_data(*panthers, sep= ','))
+                print(pretty_data(*panthers))
                
             elif team_sel.lower() == "b":
                 team = "Bandits"
@@ -98,7 +92,7 @@ def show_teams():
                 average_height = (round(sum(height)/members)) 
                 
                 print('\nTEAM: {} Stats\n--------------------\nTotal Players: {}\nExperienced Players: {}\nNon-experienced Players: {}\nAverage Height: {} inches\n\n'.format(team,members,exp_count,nexp_count, average_height))
-                print(pretty_data(*bandits, sep= ','))
+                print(pretty_data(*bandits))
             
             elif team_sel.lower() == "c":
                 team = "Warriors"
@@ -113,7 +107,7 @@ def show_teams():
                 average_height = (round(sum(height)/members)) 
                 
                 print('\nTEAM: {} Stats\n--------------------\nTotal Players: {}\nExperienced Players: {}\nNon-experienced Players: {}\nAverage Height: {} inches\n\n'.format(team,members,exp_count,nexp_count, average_height))
-                print(pretty_data(*warriors, sep= ','))
+                print(pretty_data(*warriors))
                 
         else:
             raise ValueError
@@ -121,10 +115,16 @@ def show_teams():
     except ValueError as err:
         print("\nInvalid input.Please choose either A, B or C\n")     
 
-def pretty_data(*team, sep= ','):
-    for player in team:
-        print(f"Name: {player['name']}\nGuardians: {player['guardians']}\nExperience: {player['experience']}\nHeight: {player['height']}\n")
-        dis_options()
+def pretty_data(*team, sep = ','):
+    names = []
+    parents = []
+    for player in team:        
+        names.append(player['name'])
+        parents.append(player['guardians'])
+    print(f"Player's Names:\n {', '.join(names)}\n\nGuardians:\n {', '.join(parents)}\n")
+    dis_options()
+        
+       
 if __name__ == '__main__':
     def clean_data():
         for player in players:
@@ -137,14 +137,18 @@ if __name__ == '__main__':
             if player['height'] != int():
                 player['height'] = int(player['height'].split()[0])
                 
-        for player in PLAYERS:
+        for player in players:
             player['guardians'] = ', '.join(player['guardians'].split(' and '))
             
-    
-      
+
+        
+    print(GREETING.upper())
+    print('-----MENU-----\n')
     balance_teams(players)
     balance_exp(exp_players)
     balance_exp(nexp_players)
     clean_data()
     dis_options()
+   
+   
     
